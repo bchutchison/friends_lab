@@ -73,34 +73,77 @@ class TestFriends < MiniTest::Test
 
   # 2. For a given person, return their favourite tv show
   # (e.g. the function favourite_tv_show(@person2) should return the string "Baywatch")
+  def test_getting_favourite_tv_show
+    result = get_show(@person2)
+    assert_equal("Baywatch", result)
+  end
+
 
 
   # 3. For a given person, check if they like a particular food
   # (e.g. the function likes_to_eat(@person2, "bread") should return true, likes_to_eat(@person3, "spinach") should return false)
+def test_likes_to_eat__true
+  result = likes_to_eat(@person2, "bread")
+  assert_equal(true, result)
+end
+
+def test_likes_to_eat__false
+  result = likes_to_eat(@person2, "spinach")
+  assert_equal(false, result)
+end
+
+
 
   # 4. For a given person, add a new name to their list of friends
   # (e.g. the function add_friend(@person2, "Scrappy-Doo") should add Scrappy-Doo to the friends.)
   # (hint: This function should not return anything. After the function call, check for the length of the friends array to test it!)
-
+def test_number_of_friends
+  friends(@person2, "Ben")
+  result = @person2[:friends].length
+  assert_equal(2, result)
+end
 
   # 5. For a given person, remove a specific name from their list of friends
   # (hint: Same as above, testing for the length of the array should be sufficient)
+  def test_remove_friends
+    remove_friends(@person4, "Velma")
+    result = @person4[:friends].length
+    assert_equal(2, result)
+  end
 
 
   # 6. Find the total of everyone's money
   # (hint: use the @people array, remember how we checked the total number of eggs yesterday?)
-
+def test_money
+  result = total_money(@people)
+  assert_equal(143, result)
+end
 
   # 7. For two given people, allow the first person to loan a given value of money to the other
   # (hint: our function will probably need 3 arguments passed to it... the lender, the lendee, and the amount for this function)
   # (hint2: You should test if both the lender's and the lendee's money have changed, maybe two assertions?)
+def test_money_lending
+  money_lending(@person1, @person2, 1)
+  result = @person1[:monies]
+  result2 = @person2[:monies]
+  assert_equal(0, result)
+  assert_equal(3, result2)
+end
 
 
   # 8. Find the set of everyone's favourite food joined together
   # (hint: concatenate the favourites/snack arrays together)
+  def test_favourite_food_all
+    result = favourite_food_all(@people)
+    assert_equal(["charcuterie", "soup", "bread", "Scooby snacks", "spaghetti", "ratatouille", "spinach"], result)
+  end
 
 
   # 9. Find people with no friends
   # (hint: return an array, there might be more people in the future with no friends!)
+  def test_friendless
+    result = friendless(@people)
+    assert_equal(["Daphne"], result)
+  end
 
 end
